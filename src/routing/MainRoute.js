@@ -34,11 +34,15 @@ const routers = createBrowserRouter([
     element: (
       <div>
         <Navbar />
-
         <Task2 />
       </div>
     ),
   },
-]);
+],{
+  basename: "/",
+  // future: {
+  //   v7_normalizeFormMethod: true,
+  // },
+});
 
 export default routers;

@@ -12,8 +12,6 @@ export const Navbar = () => {
                 <li>
                   <a
                     href="/"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="!capitalize text-primary dark:!text-[#fff] active:!text-[yellow]"
                   >
                     Task 1
@@ -22,8 +20,6 @@ export const Navbar = () => {
                 <li>
                   <a
                     href="/task2"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="!capitalize text-primary dark:!text-[#fff] active:!text-[yellow]"
                   >
                     Task 2
