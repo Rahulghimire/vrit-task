@@ -5,9 +5,12 @@ const UrlShortner = () => {
   const [longUrl, setLongUrl] = React.useState("");
   const [customUrl, setCustomUrl] = React.useState("");
   const [data, setData] = React.useState(null);
-  const apiKey = "aOMZquUWHTONbKvmbeJdwrz58JC5FVKMhoseuMSDpvFkPlQe9v0ozFalrvhN";
-  const url = "https://api.tinyurl.com/create";
 
+  //Actually should be in env file and should be ignored in gitignorefile
+  const apiKey = "aOMZquUWHTONbKvmbeJdwrz58JC5FVKMhoseuMSDpvFkPlQe9v0ozFalrvhN";
+
+  //Actually should be in env file and should be ignored in gitignorefile
+  const url = "https://api.tinyurl.com/create";
 
 
   const handleLongUrl = (e) => {
@@ -59,7 +62,7 @@ const UrlShortner = () => {
           />
         </div>
 
-        <div>
+        <div className="mt-2">
           <input
             type="text"
             name="xxx"
