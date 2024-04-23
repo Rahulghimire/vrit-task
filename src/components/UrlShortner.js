@@ -1,28 +1,76 @@
 import React from "react";
+import axios from "axios";
 
 const UrlShortner = () => {
+  const [longUrl, setLongUrl] = React.useState("");
 
-    const [longUrl,setLongUrl]=React.useState("");
+  const apiKey = "aOMZquUWHTONbKvmbeJdwrz58JC5FVKMhoseuMSDpvFkPlQe9v0ozFalrvhN";
 
-    const [customUrl,setCustomUrl]=React.useState("");
+//   var headers = {
+//     apikey: apiKey,
+//     // workspace: "YOUR_WORKSPACE_ID"
+//   }
 
-    const handleLongUrl=(e)=>{
-        setLongUrl(e.target.value);
-    }
+// const url = 'https://tinyurl.com/app/dev/authenticate'
 
-    const handleCustomUrl=(e)=>{
-        setCustomUrl(e.target.value);
-    }
 
-const handleSubmit=(e)=>{
+
+
+  const [customUrl, setCustomUrl] = React.useState("");
+
+  const handleLongUrl = (e) => {
+    setLongUrl(e.target.value);
+  };
+
+  const handleCustomUrl = (e) => {
+    setCustomUrl(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
+
+
+    // var payload={
+    //     destination:customUrl||setCustomUrl,
+    //     domain: { fullName: "rebrand.ly" }
+    // }
+
+    // var params = {
+    //     headers: headers,
+    //     contentType: "application/json",
+    //     method: 'post',
+    //     payload: JSON.stringify(payload),
+    //     muteHttpExceptions: true
+    //   }
+
+    //   axios.post("https://api.rebrandly.com/v1/links",params);
+
+    const url = 'https://api.tinyurl.com/create'
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({url:customUrl})
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Authentication failed');
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error);
+    });
     
 
-
-}
-
-
+  };
 
   return (
     <div className=" flex flex-col gap-y-3">
@@ -52,8 +100,9 @@ const handleSubmit=(e)=>{
         </div>
 
         <button
-        type="submit"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
           Shorten It
         </button>
       </form>
