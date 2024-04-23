@@ -8,12 +8,7 @@ const UrlShortner = () => {
   const apiKey = "aOMZquUWHTONbKvmbeJdwrz58JC5FVKMhoseuMSDpvFkPlQe9v0ozFalrvhN";
   const url = "https://api.tinyurl.com/create";
 
-  //   var headers = {
-  //     apikey: apiKey,
-  //     // workspace: "YOUR_WORKSPACE_ID"
-  //   }
 
-  // const url = 'https://tinyurl.com/app/dev/authenticate'
 
   const handleLongUrl = (e) => {
     setLongUrl(e.target.value);
@@ -28,7 +23,7 @@ const UrlShortner = () => {
     axios
       .post(
         url,
-        { url: longUrl },
+        { url: longUrl||customUrl },
         {
           headers: {
             "Content-Type": "application/json",
@@ -37,9 +32,11 @@ const UrlShortner = () => {
         }
       )
       .then((response) => {
-        const tinyUrl = response.data?.data?.tiny_url;
-        if (tinyUrl) {
-          setData(tinyUrl);
+        const data = response.data?.data;
+        console.log("SADFdfdf",data);
+        if (data) {
+          setData(data);
+          alert("Success")
         }
       })
       .catch((error) => {
@@ -50,6 +47,7 @@ const UrlShortner = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className="flex gap-3 flex-col">
+        <div className={`${data&&"hidden"}`}>
         <div>
           <input
             type="text"
@@ -58,7 +56,6 @@ const UrlShortner = () => {
             onChange={handleLongUrl}
             placeholder="Enter long url"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
           />
         </div>
 
@@ -72,7 +69,36 @@ const UrlShortner = () => {
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
-        {data && <div>{data}</div>}
+
+        </div>
+        {data && 
+        <div className="flex flex-col gap-x-4">
+            <div>
+                Your URL has been shortened
+            </div>
+            <div>
+            Long URL: {data?.url}
+            </div>
+            <div className="flex gap-x-2">
+            Short URL: <p className="font-bold">{data?.tiny_url}</p>
+            </div>
+            <div className="flex gap-x-2 items-center">
+                <div className="whitespace-nowrap">
+                    Shorten Another URL
+                </div>
+                <input
+            type="text"
+            name="xxx"
+            value={longUrl}
+            onChange={handleLongUrl}
+            placeholder="Enter Another Long URL"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+         
+        </div>
+
+           </div>
+           }
         <button
           type="submit"
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
