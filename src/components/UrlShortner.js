@@ -3,8 +3,13 @@ import axios from "axios";
 
 const UrlShortner = () => {
   const [longUrl, setLongUrl] = React.useState("");
+  const [customUrl, setCustomUrl] = React.useState("");
+  const [data,setData]=React.useState(null);
+
 
   const apiKey = "aOMZquUWHTONbKvmbeJdwrz58JC5FVKMhoseuMSDpvFkPlQe9v0ozFalrvhN";
+
+  const  base_url=process.env.Api_Key;
 
 //   var headers = {
 //     apikey: apiKey,
@@ -16,7 +21,6 @@ const UrlShortner = () => {
 
 
 
-  const [customUrl, setCustomUrl] = React.useState("");
 
   const handleLongUrl = (e) => {
     setLongUrl(e.target.value);
@@ -29,41 +33,37 @@ const UrlShortner = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-
-
-    // var payload={
-    //     destination:customUrl||setCustomUrl,
-    //     domain: { fullName: "rebrand.ly" }
-    // }
-
-    // var params = {
-    //     headers: headers,
-    //     contentType: "application/json",
-    //     method: 'post',
-    //     payload: JSON.stringify(payload),
-    //     muteHttpExceptions: true
-    //   }
-
-    //   axios.post("https://api.rebrandly.com/v1/links",params);
-
     const url = 'https://api.tinyurl.com/create'
 
-    fetch(url, {
-        method: 'POST',
+    // fetch(url, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${apiKey}`
+    //     },
+    //     body: JSON.stringify({url:customUrl})
+    // })
+    // .then(response => {
+    //     if (response.ok) {
+    //         return response.json();
+    //     }
+    //     throw new Error('Authentication failed');
+    // })
+    // .then(data => {
+    //     console.log(data);
+    // })
+    // .catch(error => {
+    //     console.error(error);
+    // });
+
+    axios.post(url, { url: customUrl }, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({url:customUrl})
+        }
     })
     .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Authentication failed');
-    })
-    .then(data => {
-        console.log(data);
+        console.log(response.data);
     })
     .catch(error => {
         console.error(error);
