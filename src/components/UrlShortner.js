@@ -5,11 +5,8 @@ const UrlShortner = () => {
   const [longUrl, setLongUrl] = React.useState("");
   const [customUrl, setCustomUrl] = React.useState("");
   const [data,setData]=React.useState(null);
-
-
   const apiKey = "aOMZquUWHTONbKvmbeJdwrz58JC5FVKMhoseuMSDpvFkPlQe9v0ozFalrvhN";
-
-  const  base_url=process.env.Api_Key;
+  const  url="https://api.tinyurl.com/create"
 
 //   var headers = {
 //     apikey: apiKey,
@@ -33,29 +30,6 @@ const UrlShortner = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const url = 'https://api.tinyurl.com/create'
-
-    // fetch(url, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${apiKey}`
-    //     },
-    //     body: JSON.stringify({url:customUrl})
-    // })
-    // .then(response => {
-    //     if (response.ok) {
-    //         return response.json();
-    //     }
-    //     throw new Error('Authentication failed');
-    // })
-    // .then(data => {
-    //     console.log(data);
-    // })
-    // .catch(error => {
-    //     console.error(error);
-    // });
-
     axios.post(url, { url: customUrl }, {
         headers: {
             'Content-Type': 'application/json',
@@ -73,8 +47,8 @@ const UrlShortner = () => {
   };
 
   return (
-    <div className=" flex flex-col gap-y-3">
-      <form onSubmit={handleSubmit}>
+    <>
+      <form onSubmit={handleSubmit} className="flex gap-3 flex-col">
         <div>
           <input
             type="text"
@@ -95,7 +69,6 @@ const UrlShortner = () => {
             onChange={handleCustomUrl}
             placeholder="Enter custom url"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
           />
         </div>
 
@@ -106,7 +79,7 @@ const UrlShortner = () => {
           Shorten It
         </button>
       </form>
-    </div>
+    </>
   );
 };
 
