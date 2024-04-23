@@ -36,9 +36,9 @@ const UrlShortner = () => {
       )
       .then((response) => {
         const data = response.data?.data;
-        console.log("SADFdfdf",data);
         if (data) {
           setData(data);
+          //to show this notification can be shown
           alert("Success")
         }
       })
@@ -76,7 +76,7 @@ const UrlShortner = () => {
 
         </div>
         {data && 
-        <div className="flex flex-col gap-x-4">
+        <div className="flex flex-col gap-x-4 gap-y-2">
             <div className="text-sm font-Poppins">
                 Your URL has been shortened
             </div>
